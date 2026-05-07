@@ -30,9 +30,9 @@ export default function CompLogin() {
             passRef.current.focus();
         }
         else {
-            const jsonData = await postFetchData(`api/post/login`, form);
+            const jsonData = await postFetchData(`users/login`, form);
             console.log(jsonData.result);
-            jsonData.result ? alert(`성공적으로 등록되었습니다`) : alert(`등록에 실패하였습니다`);
+            jsonData.result ? alert(`성공적으로 로그인 되었습니다!`) : alert(`아이디 혹은 패스워드가 일치하지 않습니다!`);
         } 
     }
 

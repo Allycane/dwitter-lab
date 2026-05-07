@@ -2,6 +2,8 @@
 import express from 'express';
 // type = commonjs 일 경우, const express = require('express'); 로 import 진행
 import cors from 'cors';
+import apiRouter from './routes/api.js';
+import usersRouter from './routes/users.js';
 
 // 2. express 객체 생성
 const PORT = 9000;
@@ -19,78 +21,27 @@ app.get('/', (req, res, next) => {
     res.json({"msg":"서버 실행 테스트"});
 });
 
-app.get('/api/get', (req, res, next) => {
-    const fruits = [
-        {
-            "name" : "Apple", "color" : "Red", "emoji" : "🍎"
-        },
-        {
-            "name" : "Banana", "color" : "Yellow", "emoji" : "🍌"
-        },
-        {
-            "name" : "Avocado", "color" : "Green", "emoji" : "🥑"
-        }
-    ];
-
-    // fruits는 json 타입으로 넘어가야 하지만 fruits는 배열이기 때문에, json 타입으로 맞춰주어야 함
-    res.json({"fruits" : fruits});
-})
-
-app.get('/api/products', (req, res, next) => {
-    const products = [
-  {
-    "pid": "P0001",
-    "name": "갸또 쇼콜라",
-    "price": 43000,
-    "img": "/images/product1.jpg"
-  },
-  {
-    "pid": "P0002",
-    "name": "쉭쎄",
-    "price": 20000,
-    "img": "/images/product2.jpg"
-  },
-  {
-    "pid": "P0003",
-    "name": "초코 구운과자 묶음",
-    "price": 13000,
-    "img": "/images/product3.jpg"
-  },
-  {
-    "pid": "P0004",
-    "name": "통팥앙금빵",
-    "price": 2500,
-    "img": "/images/product4.jpg"
-  },
-  {
-    "pid": "P0005",
-    "name": "브라우니",
-    "price": 20800,
-    "img": "/images/product5.jpg"
-  }
-]
-    res.json({"products":products});
-})
-
-app.get('/api/products/:pid', (req, res, next) => {
-    // 다이나믹 파라미터, 다이나믹 밸류 등 - :(parameter)
-    // param = {"pid" : "P0001"}, req를 통해 param에 저장될 정보를 요청해야 함
-    // req = {"params" : {"pid" : "P0001"}}; // request.params.pid
-    // console.log(req.params.pid);
-    res.json({"result" : `${req.params.pid}의 상세정보`});
-})
-
-// form 데이터 전송
-app.post('/api/post', (req, res) => {
-    console.log(req.body);
-    res.json({"result" : true});
-})
+// 라우터 사용
+app.use('/api', apiRouter);
+app.use('/users', usersRouter);
 
 // 로그인 폼 데이터 전송
-app.post('/api/post/login', (req, res) => {
-    console.log(req.body); // 받아오는 데이터가 콘솔에 찍히는지 확인 완료
-    res.json({"result" : true});
+/*
+app.post('/users/login', (req, res) => {
+    // JSON 구조분해 할당
+    const {id, pass} = req.body.data;
+    const users = [
+        { "id" : "test", "pass" : "1234" },
+        { "id" : "hong", "pass" : "1111" },
+        { "id" : "test1234", "pass" : "test1234" }
+    ];
+    console.log(id, pass);
+    // find()를 사용하여 데이터가 일치하면 true를 반환한다, 혹은 filter()를 이용할 수도 있다
+    const userIndex = users.findIndex(user => user.id === id && user.pass === pass);
+    const result = userIndex !== -1 ? true : false;
+    res.json({"result" : result});
 })
+*/
 
 // 5. 서버 시작
 app.listen(PORT, () => {
