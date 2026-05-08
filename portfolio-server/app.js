@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import headerRouter from './routes/header.js';
-import contentRouter from './routes/content.js';
-import footerRouter from './routes/footer.js';
+import headerRouter from './routes/headerRouter.js';
+import contentRouter from './routes/contentRouter.js';
+import footerRouter from './routes/footerRouter.js';
 
 const PORT = 9000;
 const app = express();

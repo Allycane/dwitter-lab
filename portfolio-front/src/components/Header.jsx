@@ -17,7 +17,7 @@ export default function Header() {
         fetchData();
     }, []);
 
-    console.log(data);
+    // console.log(data);
 
     return (
         <header className="header">
