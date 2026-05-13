@@ -1,16 +1,17 @@
+import db from '../db/connection.js';
 /**
  * 전역 변수 선언
  */
 // home 전역 변수
-const home = {
-    "img": "images/favicon.ico",
-    "alt": "photo",
-    "title": "Junior Developer",
-    "name": "Judy",
-    "description": "A software engineer currently residing in Seoul, South Korea",
-    "href": "#",
-    "menuName": "contact me"
-};
+// const home = {
+//     "img": "images/favicon.ico",
+//     "alt": "photo",
+//     "title": "Junior Developer",
+//     "name": "Judy",
+//     "description": "A software engineer currently residing in Seoul, South Korea",
+//     "href": "#",
+//     "menuName": "contact me"
+// };
 // about 전역 변수
 const about = {
     "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Placeat odio dicta necessitatibus libero magnam est alias nisi laborum nesciunt!",
@@ -148,23 +149,36 @@ const testimonials = [
  * Controller로 Repository 전송
  * 함수 ( Arrow Function )
  */
-export const getHome = () => {
-    return home;
+export const getHome = async() => {
+    const sql = `select home from portfolio`;
+    const [results] = await db.execute(sql, []);
+    return results[0].home;
 };
-export const getAbout = () => {
-    return about;
+export const getAbout = async() => {
+    const sql = `select about from portfolio`;
+    const [results] = await db.execute(sql, []);
+    return results[0].about;
 };
-export const getSkills = () => {
-    return skills;
+export const getSkills = async() => {
+    const sql = `select skills from portfolio`;
+    const [results] = await db.execute(sql, []);
+    return results[0].skills;
 };
-export const getWork = () => {
-    return work;
+export const getWork = async() => {
+    const sql = `select work from portfolio`;
+    const [results] = await db.execute(sql, []);
+    return results[0].work;
 };
-export const getTestimonials = () => {
-    return testimonials;
+export const getTestimonials = async() => {
+    const sql = `select testimonials from portfolio`;
+    const [results] = await db.execute(sql, []);
+    return results[0].testimonials;
 };
 
-export const getProjects = (pid) => {
-    const project = work.projects.find(project => project.pid === pid);
-    return project;
+export const getProjects = async(pid) => {
+    const sql = `select work from portfolio`;
+    const [results] = await db.execute(sql, []);
+    const projects = await results[0].work.projects.find(project => project.pid === pid);
+
+    return await projects;
 };

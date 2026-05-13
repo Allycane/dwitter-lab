@@ -1,17 +1,11 @@
+import db from '../DB/connection.js';
 
-export const getHeaderData = () => {
-    const header = {
-        "logo": {
-            "img": "images/favicon.ico",
-            "name": "Judy"
-        },
-        "menus": [
-            {"href": "/",   "style": "header-menu-item", "name": "Home"},
-            {"href": "/about",  "style": "header-menu-item", "name": "About"},
-            {"href": "/skills", "style": "header-menu-item", "name": "Skills"},
-            {"href": "/work",   "style": "header-menu-item", "name": "My Work"},
-            {"href": "testimonials", "style": "header-menu-item", "name": "Testimonial"}
-        ]
-    }
-    return header;
+export const getHeaderData = async() => {
+    const sql = `select header from portfolio`;
+
+    // results = 데이터, fields = 컬럼
+    // 구조분해 할당
+    const [results, fields] = await db.execute(sql, []);
+    
+    return await results[0].header;
 }
