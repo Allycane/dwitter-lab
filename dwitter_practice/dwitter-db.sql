@@ -52,20 +52,34 @@ select count(username) as count, password from users where username = 'user1' gr
 select count(username) as userCount, (select password from users where username = 'user1') as password 
 	from users where username = 'user1';
 
+select count(username) as count,
+		(select id from users where username = 'user1') id,
+		(select username from users where username = 'user1') username,
+        (select password from users where username = 'user1') password,
+        (select avatar_url from users where username = 'user1') avatar_url
+        from users
+        where username = 'user1';
 
 
+select 
+	t.id, t.content, t.created_at, u.id as user_id, u.username, u.avatar_url from tweets t inner join users u on t.user_id = u.id
+    where t.user_id = 1 order by t.created_at desc;
 
 
+select * from tweets;
+
+select id, user_id, content from tweets where user_id = 1;
 
 
+-- 전체 데이터에 대한 VIEW 생성
+create view tweets_view
+as
+SELECT t.id, t.content, t.created_at, u.id AS user_id, u.username, u.avatar_url FROM tweets t INNER JOIN users u ON t.user_id = u.id;
 
+select count(*) from tweets;
+select * from information_schema.views where table_schema = 'dwitter';
 
-
-
-
-
-
-
+select * from tweets_view ORDER BY created_at DESC;
 
 
 
