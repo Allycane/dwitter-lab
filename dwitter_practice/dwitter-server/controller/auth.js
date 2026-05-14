@@ -13,6 +13,7 @@ export const getLogin = async (req, res) => {
   try {
     // bcrypt = 라이브러리
     // compare(a, b) = a의 값을 인코딩하여, 인코딩 되어있는 b와 값을 비교한다
+    // 논리연산을 통해 0과 1로 일치 여부를 확인하여 값을 반환한다
     const user = await repository.getLogin(username);
     const valid = await bcrypt.compare(password, user.password);
     if(!user.count || valid) {
