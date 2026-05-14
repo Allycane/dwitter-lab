@@ -47,7 +47,10 @@ select * from users;
 select * from users where username = 'user123';
 select count(username) as count, password from users where username = 'user1' group by password;
 
-
+-- 로그인
+-- select * from users where username = 'user1';
+select count(username) as userCount, (select password from users where username = 'user1') as password 
+	from users where username = 'user1';
 
 
 

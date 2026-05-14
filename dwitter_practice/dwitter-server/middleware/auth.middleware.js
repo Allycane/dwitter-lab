@@ -6,10 +6,12 @@ export default function authMiddleware(req, res, next) {
   const authHeader = req.headers['authorization'];
   const token = authHeader?.startsWith('Bearer ') ? authHeader.slice(7) : null;
 
+  // 토큰이 있는지 없는지를 체크한다
   if (!token) {
     return res.status(401).json({ message: '인증 토큰이 없습니다.' });
   }
 
+  // 토큰 재생성시!!
   try {
     req.user = jwt.verify(token, SECRET);
     next();

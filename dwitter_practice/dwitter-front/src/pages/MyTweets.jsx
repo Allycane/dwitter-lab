@@ -1,25 +1,26 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthContext"; // 로그인 정보를 담은 객체
 import { tweetAPI } from "../api/authApi.js";
 import TweetComposer from "../components/TweetComposer";
 import TweetCard from "../components/TweetCard";
 import styles from "./Feed.module.css";
 
 export default function MyTweets() {
-  const { user, ready } = useAuth();
+  const { user, ready } = useAuth(); // 로그인 인증 여부 확인
   const navigate = useNavigate();
   const [tweets, setTweets] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    if (!ready) return;
+    // if (!ready) return;
     if (!user) {
       navigate("/login");
       return;
     }
 
+    //tweetAPI는 비동기식, promise를 리턴한다
     tweetAPI
       .getMy()
       .then(setTweets)
