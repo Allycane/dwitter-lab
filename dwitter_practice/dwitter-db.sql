@@ -83,7 +83,8 @@ select * from tweets_view ORDER BY created_at DESC;
 
 
 
-
+select * from information_schema.views where table_schema = 'dwitter';
+select * from tweets_view;
 
 
 

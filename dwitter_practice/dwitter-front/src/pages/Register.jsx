@@ -76,6 +76,7 @@ export default function Register() {
         if (!res.ok) throw new Error("이미지 업로드 실패");
         const data = await res.json();
         profileImage = data.filename;
+        console.log('업로드 이미지', profileImage);
       }
 
       // ✅ 2단계: 실제 서버 회원가입 API 호출

@@ -34,12 +34,15 @@ export const getLogin = async (req, res) => {
  * 회원가입
 */
 export const getAuth = async (req, res) => {
-  const SECRET = process.env.JWT_SECRET; // .env에서 불러오기
+  const SECRET = process.env.JWT_SECRET; // .env에서 불러오기, TOKEN을 생성하여 로그인까지 진행한다
+  // 회원가입 후 로그인이 적용되지 않도록 한다면 굳이 SCERET을 적용할 필요없음
   const { userName, password, profileImage } = req.body;
+  // 비밀번호는 그대로 가져오는 것이 아닌 암호화 ( 인코딩 ) 을 진행해야 함
 
   try {
     //패스워드 암호화
-    const hashed = await bcrypt.hash(req.body.password, 10);
+    // hash(password, 10) 패스워드를 인코딩 후 10자리의 텍스트를 더해 섞는 과정
+    const hashed = await bcrypt.hash(password, 10);
       const result = await repository.signUp({
       userName,
       password: hashed,
